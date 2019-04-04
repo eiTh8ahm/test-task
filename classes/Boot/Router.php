@@ -3,6 +3,7 @@
 namespace TestTask\Boot;
 
 use TestTask\Controllers\BaseController;
+use TestTask\Response;
 
 class Router
 {
@@ -56,7 +57,7 @@ class Router
             abort_404();
         }
 
-        dd($response);
+        Response::send($response);
     }
 
     /**

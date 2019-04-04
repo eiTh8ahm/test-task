@@ -2,10 +2,12 @@
 
 namespace TestTask\Controllers;
 
+use TestTask\Exceptions\KeyAlreadyExistsException;
 use TestTask\Facades\Request;
 use TestTask\Facades\Storage;
 use TestTask\Response;
 use TestTask\Validator;
+use Exception;
 
 class IndexController extends BaseController
 {
@@ -22,7 +24,17 @@ class IndexController extends BaseController
             return Response::validationError($errorMessages);
         }
 
-        $result = Storage::get($key);
+        try {
+            $result = Storage::get($key);
+        } catch (Exception $exception) {
+            return Response::error(['error' => $exception->getMessage()]);
+        }
+
+        if (empty($result)) {
+            return Response::errorNotFound(['error' => 'not found']);
+        }
+
+        $result = $this->prepareResultForResponse($result);
 
         return Response::success($result);
     }
@@ -44,7 +56,13 @@ class IndexController extends BaseController
             return Response::validationError($errorMessages);
         }
 
-        Storage::set($key, $value);
+        try {
+            Storage::set($key, $value);
+        } catch (KeyAlreadyExistsException $exception) {
+            return Response::error(['error' => $exception->errorMessage()]);
+        }
+
+        return Response::success(['result' => 'success']);
     }
 
     /**
@@ -60,6 +78,22 @@ class IndexController extends BaseController
             return Response::validationError($errorMessages);
         }
 
-        Storage::delete($key);
+        try {
+            Storage::delete($key);
+        } catch (Exception $exception) {
+            return Response::error(['error' => $exception->getMessage()]);
+        }
+
+        return Response::success(['result' => 'success']);
+    }
+
+    /**
+     * @param $result
+     *
+     * @return mixed
+     */
+    private function prepareResultForResponse($result)
+    {
+        return array_shift($result);
     }
 }
