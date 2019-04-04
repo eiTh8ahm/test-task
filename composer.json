@@ -10,6 +10,10 @@
     "autoload": {
         "psr-4": {
             "TestTask\\": "classes/"
-        }
+        },
+        "files" : [
+            "misc/constants.php",
+            "misc/helpers.php"
+        ]
     }
 }

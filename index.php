@@ -1,5 +1,7 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
+
+define('ROOT_PATH', dirname(__FILE__));
 
 (new \TestTask\Boot\Boot)->init();
