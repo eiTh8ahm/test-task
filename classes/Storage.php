@@ -3,6 +3,7 @@
 namespace TestTask;
 
 use TestTask\Exceptions\KeyAlreadyExistsException;
+use TestTask\Exceptions\KeyDoesNotExist;
 
 class Storage extends BaseStorage
 {
@@ -50,9 +51,14 @@ class Storage extends BaseStorage
      * @param $key
      *
      * @return bool
+     * @throws KeyDoesNotExist
      */
     public function delete(string $key)
     {
+        if ($this->isKeyDoesNotExist($key)) {
+            throw new KeyDoesNotExist('Key does not exist.');
+        }
+
         $sql = "DELETE FROM $this->tableName WHERE `key` = ?";
 
         $status = $this->destroy($sql, [$key]);
@@ -70,6 +76,16 @@ class Storage extends BaseStorage
         $result = $this->select("SELECT `id` FROM $this->tableName WHERE `key` = ?", [$key]);
 
         return ! empty($result);
+    }
+
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
+    private function isKeyDoesNotExist(string $key): bool
+    {
+        return ! $this->isKeyExists($key);
     }
 
 }

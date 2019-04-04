@@ -42,7 +42,7 @@ class Router
     /**
      * @return mixed
      */
-    private function run(): void
+    private function run()
     {
         if ($this->isRouteExists()) {
 

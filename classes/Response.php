@@ -49,7 +49,7 @@ class Response
             'headers'     => [
                 'Content-type: application/json'
             ],
-            'body'        => json_encode($data)
+            'body'        => json_encode(['error' => $data])
         ];
     }
 
@@ -88,7 +88,7 @@ class Response
     /**
      * @param $response
      */
-    public static function send(array $response): void
+    public static function send(array $response)
     {
         http_response_code($response['status_code']);
 

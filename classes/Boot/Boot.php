@@ -7,7 +7,7 @@ class Boot
     /**
      * init
      */
-    public function init(): void
+    public function init()
     {
         (new Router);
     }
