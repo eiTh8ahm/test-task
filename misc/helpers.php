@@ -37,3 +37,27 @@ if ( ! function_exists('dd')) {
         }
     }
 }
+
+if (!function_exists('env')) {
+
+    /**
+     * parse .env files and create constants
+     */
+    function env()
+    {
+        $env = file_get_contents(ROOT_PATH . '/.env');
+        $env = explode(';', $env);
+
+        foreach ($env as &$item) {
+            $item = trim($item);
+        }
+
+        array_pop($env);
+
+        foreach ($env as $item) {
+            $elements = explode('=', $item);
+
+            define($elements[0], $elements[1]);
+        }
+    }
+}
