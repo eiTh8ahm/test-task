@@ -4,7 +4,6 @@ namespace TestTask;
 
 class Response
 {
-
     /**
      * @param $statusCode
      * @param $body

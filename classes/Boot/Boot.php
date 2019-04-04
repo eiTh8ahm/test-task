@@ -9,6 +9,6 @@ class Boot
      */
     public function init()
     {
-        (new Router);
+        new Router;
     }
 }

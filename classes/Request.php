@@ -4,7 +4,6 @@ namespace TestTask;
 
 class Request
 {
-
     /**
      * @var
      */

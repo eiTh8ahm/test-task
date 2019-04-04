@@ -7,7 +7,6 @@ use TestTask\Exceptions\KeyDoesNotExist;
 
 class Storage extends BaseStorage
 {
-
     /**
      * @var string
      */

@@ -19,13 +19,9 @@ class PDODriver
      */
     public function __construct(string $host, string $username, string $password, string $dbName)
     {
-        try {
-            $this->connection = new \PDO("mysql:host=$host;dbname=$dbName", $username, $password);
+        $this->connection = new \PDO("mysql:host=$host;dbname=$dbName", $username, $password);
 
-            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
+        $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
     /**
