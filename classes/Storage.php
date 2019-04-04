@@ -17,7 +17,7 @@ class Storage extends BaseStorage
      *
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->select("SELECT `key`, `value` FROM $this->tableName WHERE `key` = ?", [$key]);
     }
@@ -31,7 +31,7 @@ class Storage extends BaseStorage
      * @return bool
      * @throws KeyAlreadyExistsException
      */
-    public function set($key, $value)
+    public function set(string $key, string $value)
     {
         if ($this->isKeyExists($key)) {
             throw new KeyAlreadyExistsException('Key already exists.');
@@ -51,7 +51,7 @@ class Storage extends BaseStorage
      *
      * @return bool
      */
-    public function delete($key)
+    public function delete(string $key)
     {
         $sql = "DELETE FROM $this->tableName WHERE `key` = ?";
 

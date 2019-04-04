@@ -39,7 +39,7 @@ class Request
     /**
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return array_merge($this->getData, $this->postData);
     }
@@ -49,7 +49,7 @@ class Request
      *
      * @return null
      */
-    public function input($key)
+    public function input(string $key)
     {
         $value = null;
 

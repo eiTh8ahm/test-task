@@ -6,11 +6,13 @@ class Validator
 {
     /**
      * @param $value
-     * @param $rules
+     * @param string $rules
+     *
+     * @param string $valueType
      *
      * @return array
      */
-    public static function validate($value, $rules, $valueType): array
+    public static function validate($value, string $rules, string $valueType): array
     {
         $rules    = explode('|', $rules);
         $messages = [];

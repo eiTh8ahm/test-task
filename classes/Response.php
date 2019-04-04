@@ -12,12 +12,12 @@ class Response
      *
      * @return array
      */
-    public static function response($statusCode, $body, $headers = [])
+    public static function response(int $statusCode, string $body, array $headers = []): array
     {
         return [
-            'status_code'  => $statusCode,
-            'headers' => $headers,
-            'body'    => $body
+            'status_code' => $statusCode,
+            'headers'     => $headers,
+            'body'        => $body
         ];
     }
 
@@ -26,14 +26,14 @@ class Response
      *
      * @return array
      */
-    public static function error($data)
+    public static function error(array $data): array
     {
         return [
-            'status_code'  => 400,
-            'headers' => [
+            'status_code' => 400,
+            'headers'     => [
                 'Content-type: application/json'
             ],
-            'body'    => json_encode($data)
+            'body'        => json_encode($data)
         ];
     }
 
@@ -42,14 +42,14 @@ class Response
      *
      * @return array
      */
-    public static function validationError($data)
+    public static function validationError(array $data): array
     {
         return [
-            'status_code'  => 400,
-            'headers' => [
+            'status_code' => 400,
+            'headers'     => [
                 'Content-type: application/json'
             ],
-            'body'    => json_encode($data)
+            'body'        => json_encode($data)
         ];
     }
 
@@ -58,14 +58,14 @@ class Response
      *
      * @return array
      */
-    public static function errorNotFound($data)
+    public static function errorNotFound(array $data): array
     {
         return [
-            'status_code'  => 404,
-            'headers' => [
+            'status_code' => 404,
+            'headers'     => [
                 'Content-type: application/json'
             ],
-            'body'    => json_encode($data)
+            'body'        => json_encode($data)
         ];
     }
 
@@ -74,21 +74,21 @@ class Response
      *
      * @return array
      */
-    public static function success($data)
+    public static function success(array $data): array
     {
         return [
-            'status_code'  => 200,
-            'headers' => [
+            'status_code' => 200,
+            'headers'     => [
                 'Content-type: application/json'
             ],
-            'body'    => json_encode($data)
+            'body'        => json_encode($data)
         ];
     }
 
     /**
      * @param $response
      */
-    public static function send($response)
+    public static function send(array $response): void
     {
         http_response_code($response['status_code']);
 

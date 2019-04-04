@@ -14,7 +14,7 @@ class IndexController extends BaseController
     /**
      * get
      */
-    public function get()
+    public function get(): array
     {
         $key = Request::input('key');
 
@@ -42,7 +42,7 @@ class IndexController extends BaseController
     /**
      * set
      */
-    public function set()
+    public function set(): array
     {
         $key   = Request::input('key');
         $value = Request::input('value');
@@ -68,7 +68,7 @@ class IndexController extends BaseController
     /**
      * delete
      */
-    public function delete()
+    public function delete(): array
     {
         $key = Request::input('key');
 
@@ -92,7 +92,7 @@ class IndexController extends BaseController
      *
      * @return mixed
      */
-    private function prepareResultForResponse($result)
+    private function prepareResultForResponse(array $result): array
     {
         return array_shift($result);
     }

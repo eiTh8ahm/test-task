@@ -7,7 +7,7 @@ class Request extends Facade
     /**
      * getFacadeAccessor
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'request';
     }

@@ -9,7 +9,7 @@ class KeyAlreadyExistsException extends Exception
     /**
      * @return string
      */
-    public function errorMessage()
+    public function errorMessage(): string
     {
         return $this->getMessage();
     }

@@ -42,7 +42,7 @@ class Router
     /**
      * @return mixed
      */
-    private function run()
+    private function run(): void
     {
         if ($this->isRouteExists()) {
 
@@ -63,7 +63,7 @@ class Router
     /**
      * @return bool|string
      */
-    public function getRequestUri()
+    public function getRequestUri(): string
     {
         $uri = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
@@ -77,7 +77,7 @@ class Router
     /**
      * @return bool
      */
-    private function isRouteExists()
+    private function isRouteExists(): bool
     {
         $requestedRoute = $_SERVER['REQUEST_METHOD'] . ':' . $this->requestUri;
 

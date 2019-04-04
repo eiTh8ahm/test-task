@@ -17,7 +17,7 @@ class PDODriver
      * @param $password
      * @param $dbName
      */
-    public function __construct($host, $username, $password, $dbName)
+    public function __construct(string $host, string $username, string $password, string $dbName)
     {
         try {
             $this->connection = new \PDO("mysql:host=$host;dbname=$dbName", $username, $password);

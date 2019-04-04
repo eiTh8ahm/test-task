@@ -7,7 +7,7 @@ class Storage extends Facade
     /**
      * getFacadeAccessor
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'storage';
     }

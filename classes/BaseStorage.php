@@ -25,7 +25,7 @@ class BaseStorage
      *
      * @return mixed
      */
-    protected function select($query, $params)
+    protected function select(string $query, array $params): array
     {
         $stmt = $this->databaseDriver->prepare($query);
         $stmt->execute($params);
@@ -41,7 +41,7 @@ class BaseStorage
      *
      * @return bool
      */
-    protected function insert($query, $params)
+    protected function insert(string $query, array $params): bool
     {
         $stmt   = $this->databaseDriver->prepare($query);
         $result = $stmt->execute($params);
@@ -59,7 +59,7 @@ class BaseStorage
      *
      * @return bool
      */
-    protected function destroy($query, $params)
+    protected function destroy(string $query, array $params): bool
     {
         $stmt   = $this->databaseDriver->prepare($query);
         $result = $stmt->execute($params);
