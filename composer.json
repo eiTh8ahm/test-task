@@ -1,0 +1,15 @@
+{
+    "name": "andrew/test-task",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Andrew Korneenko",
+            "email": "korneenko.andrew@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TestTask\\": "classes/"
+        }
+    }
+}
