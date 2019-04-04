@@ -2,7 +2,10 @@
 
 namespace TestTask\Controllers;
 
+use TestTask\Facades\Request;
 use TestTask\Facades\Storage;
+use TestTask\Response;
+use TestTask\Validator;
 
 class IndexController extends BaseController
 {
@@ -11,9 +14,17 @@ class IndexController extends BaseController
      */
     public function get()
     {
-        $result = Storage::get('key');
+        $key = Request::input('key');
 
-        dd($result);
+        $errorMessages = Validator::validate($key, 'not_empty|string|max_length:16', '`key`');
+
+        if ($errorMessages) {
+            return Response::validationError($errorMessages);
+        }
+
+        $result = Storage::get($key);
+
+        return Response::success($result);
     }
 
     /**
@@ -21,8 +32,17 @@ class IndexController extends BaseController
      */
     public function set()
     {
-        $key = 'testKey';
-        $value = 'testValue';
+        $key   = Request::input('key');
+        $value = Request::input('value');
+
+        $errorMessages = array_merge(
+            Validator::validate($key, 'not_empty|string|max_length:16', '`key`'),
+            Validator::validate($value, 'not_empty|string|max_length:512', '`value`')
+        );
+
+        if ($errorMessages) {
+            return Response::validationError($errorMessages);
+        }
 
         Storage::set($key, $value);
     }
@@ -32,9 +52,14 @@ class IndexController extends BaseController
      */
     public function delete()
     {
-        $key = 'testKey';
+        $key = Request::input('key');
+
+        $errorMessages = Validator::validate($key, 'not_empty|string|max_length:16', '`key`');
+
+        if ($errorMessages) {
+            return Response::validationError($errorMessages);
+        }
 
         Storage::delete($key);
     }
-
 }

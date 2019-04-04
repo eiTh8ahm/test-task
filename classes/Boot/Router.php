@@ -50,13 +50,13 @@ class Router
             $method  = explode('@', $handler)[1];
 
             $className = '\\' . BaseController::$namespace . '\\' . $class;
-            (new $className($method))->$method();
+            $response = (new $className($method))->$method();
 
         } else {
             abort_404();
         }
 
-//        return $response;
+        dd($response);
     }
 
     /**
