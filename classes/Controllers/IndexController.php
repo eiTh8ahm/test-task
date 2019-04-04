@@ -21,7 +21,10 @@ class IndexController extends BaseController
      */
     public function set()
     {
-        echo 'set';
+        $key = 'testKey';
+        $value = 'testValue';
+
+        Storage::set($key, $value);
     }
 
     /**
@@ -29,7 +32,9 @@ class IndexController extends BaseController
      */
     public function delete()
     {
-        echo 'delete';
+        $key = 'testKey';
+
+        Storage::delete($key);
     }
 
 }

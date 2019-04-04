@@ -20,17 +20,54 @@ class BaseStorage
     }
 
     /**
-     * @param $key
+     * @param $query
+     * @param $params
      *
      * @return mixed
      */
-    protected function getByKey($key)
+    protected function select($query, $params)
     {
-        $stmt = $this->databaseDriver->prepare("SELECT * FROM storage WHERE `key` = ?");
-        $stmt->execute([$key]);
+        $stmt = $this->databaseDriver->prepare($query);
+        $stmt->execute($params);
 
         $result = $stmt->setFetchMode(\PDO::FETCH_ASSOC);
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * @param $query
+     * @param $params
+     *
+     * @return bool
+     */
+    protected function insert($query, $params)
+    {
+        $stmt   = $this->databaseDriver->prepare($query);
+        $result = $stmt->execute($params);
+
+        if ($result) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $query
+     * @param $params
+     *
+     * @return bool
+     */
+    protected function destroy($query, $params)
+    {
+        $stmt   = $this->databaseDriver->prepare($query);
+        $result = $stmt->execute($params);
+
+        if ($result) {
+            return true;
+        }
+
+        return false;
     }
 }
