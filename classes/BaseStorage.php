@@ -2,6 +2,8 @@
 
 namespace TestTask;
 
+use PDO;
+
 class BaseStorage
 {
     /**
@@ -16,6 +18,7 @@ class BaseStorage
      */
     public function __construct($databaseDriver)
     {
+        $databaseDriver->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $this->databaseDriver = $databaseDriver;
     }
 
