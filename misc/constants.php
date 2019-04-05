@@ -1,3 +1,3 @@
 <?php
 
-// TODO: add project constants here
+define('STORAGE_MAX_NUMBER_OF_KEYS', 1024);

@@ -4,7 +4,7 @@ namespace TestTask\Exceptions;
 
 use Exception;
 
-class KeyDoesNotExist extends Exception
+class KeyDoesNotExistException extends Exception
 {
     /**
      * @return string

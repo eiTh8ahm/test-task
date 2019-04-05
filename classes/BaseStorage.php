@@ -25,12 +25,16 @@ class BaseStorage
      *
      * @return mixed
      */
-    protected function select(string $query, array $params): array
+    protected function select(string $query, array $params = []): array
     {
-        $stmt = $this->databaseDriver->prepare($query);
-        $stmt->execute($params);
-
-        $result = $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+        if ($params) {
+            $stmt = $this->databaseDriver->prepare($query);
+            $stmt->execute($params);
+            $stmt->setFetchMode(\PDO::FETCH_ASSOC);
+        } else {
+            $stmt = $this->databaseDriver->query($query);
+            $stmt->setFetchMode(\PDO::FETCH_NUM);
+        }
 
         return $stmt->fetchAll();
     }

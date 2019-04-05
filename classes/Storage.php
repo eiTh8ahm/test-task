@@ -3,7 +3,8 @@
 namespace TestTask;
 
 use TestTask\Exceptions\KeyAlreadyExistsException;
-use TestTask\Exceptions\KeyDoesNotExist;
+use TestTask\Exceptions\KeyDoesNotExistException;
+use TestTask\Exceptions\StorageIsFullException;
 
 class Storage extends BaseStorage
 {
@@ -25,16 +26,19 @@ class Storage extends BaseStorage
     /**
      * set
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string $value
      *
      * @return bool
      * @throws KeyAlreadyExistsException
+     * @throws StorageIsFullException
      */
     public function set(string $key, string $value)
     {
         if ($this->isKeyExists($key)) {
             throw new KeyAlreadyExistsException('Key already exists.');
+        } elseif ($this->isStorageFull()) {
+            throw new StorageIsFullException('Storage is full.');
         }
 
         $query = "INSERT INTO $this->tableName (`key`, `value`) VALUES (:key, :value)";
@@ -50,12 +54,12 @@ class Storage extends BaseStorage
      * @param $key
      *
      * @return bool
-     * @throws KeyDoesNotExist
+     * @throws KeyDoesNotExistException
      */
     public function delete(string $key)
     {
         if ($this->isKeyDoesNotExist($key)) {
-            throw new KeyDoesNotExist('Key does not exist.');
+            throw new KeyDoesNotExistException('Key does not exist.');
         }
 
         $sql = "DELETE FROM $this->tableName WHERE `key` = ?";
@@ -85,6 +89,20 @@ class Storage extends BaseStorage
     private function isKeyDoesNotExist(string $key): bool
     {
         return ! $this->isKeyExists($key);
+    }
+
+    /**
+     * isStorageFull
+     */
+    private function isStorageFull()
+    {
+        $result = $this->select("SELECT COUNT(id) AS number_of_rows FROM $this->tableName");
+
+        if (array_shift($result)[0] > STORAGE_MAX_NUMBER_OF_KEYS) {
+            return true;
+        }
+
+        return false;
     }
 
 }

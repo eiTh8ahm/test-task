@@ -3,6 +3,7 @@
 namespace TestTask\Controllers;
 
 use TestTask\Exceptions\KeyAlreadyExistsException;
+use TestTask\Exceptions\StorageIsFullException;
 use TestTask\Facades\Request;
 use TestTask\Facades\Storage;
 use TestTask\Response;
@@ -59,6 +60,8 @@ class IndexController extends BaseController
         try {
             Storage::set($key, $value);
         } catch (KeyAlreadyExistsException $exception) {
+            return Response::error(['error' => $exception->errorMessage()]);
+        } catch (StorageIsFullException $exception) {
             return Response::error(['error' => $exception->errorMessage()]);
         }
 
